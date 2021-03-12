@@ -12,7 +12,7 @@ const connectDB = async () => {
       break;
     } catch (err) {
       console.log("Error: ", err.message);
-      attempts -= 1;
+      attempts -= 1; 
       console.log(`connection attempts left: ${attempts}`);
       // wait for 10 seconds before retrying
       await new Promise(res => setTimeout(res, 10000));

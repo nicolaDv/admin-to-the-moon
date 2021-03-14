@@ -1,4 +1,4 @@
-# Admin to the moon :rocket:
+# Admin to the Moon :rocket:
 
 
 ## Technical Architecture Diagram

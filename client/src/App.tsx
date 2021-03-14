@@ -1,9 +1,9 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import './App.css';
-import Dashboard, { INavStaus } from './layout/Dashboard';
+import Dashboard from './layout/Dashboard';
 
 import Placeholder from './comp/Placeholder'
-
 
 const App: React.FC = () => {
   const [toDoItems, updateToDoItems] = React.useState<any | null>([]);
@@ -19,9 +19,14 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <Dashboard >
-      {<T extends INavStaus>(props: T) => Placeholder(props)}
-    </Dashboard>
+    <BrowserRouter>
+      <Switch>
+          <Route path='/home'>
+            <Dashboard something = "blabval">{(innerProps) => Placeholder(innerProps)}</Dashboard>
+          </Route>
+      </Switch>
+    </BrowserRouter>
+    
   )
 }
 

@@ -2,25 +2,10 @@ import React, { ReactNode,Children,ReactNodeArray } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-
-
-
-import Link from '@material-ui/core/Link';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import { ComboBar } from '../components/comboBar/ComboBar';
-
-import src from '*.avif';
+import { RouteComponentProps } from 'react-router-dom';
+import { useRouteMatch,useHistory } from "react-router-dom";
 
 
 const drawerWidth = 240;
@@ -112,8 +97,9 @@ export interface IUsuerStatus {
   userStatus : Boolean
 }
 
-export interface IDashboard {
-  children : <T extends INavStaus & IUsuerStatus>(status: T) => JSX.Element
+export interface IDashboard{
+  children : <T extends INavStaus & IUsuerStatus>(props: T) => JSX.Element,
+  something ?: String
 }
 
 
@@ -122,6 +108,10 @@ const  Dashboard  = (props:IDashboard) => {
 
   const [open, setOpen] = React.useState(false);
   const [classes, setStyles] = React.useState(useStyles());
+  const { path, url , isExact , params } = useRouteMatch();
+  const history = useHistory(); 
+
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -140,11 +130,17 @@ const  Dashboard  = (props:IDashboard) => {
       <ComboBar styleClasses = {classes} handleDrawerOpen = {handleDrawerOpen} handleDrawerClose = {handleDrawerClose} barStatus = {open} />
       <main className={classes.content}  >
         <div className={classes.appBarSpacer} />
-        
         {
           props.children({ navStatus : open, userStatus : false})
         }
-       
+        {
+          JSON.stringify({path, url , isExact , params})
+        }
+        
+        { 
+          
+          JSON.stringify({history})
+        }
       </main>
     </div>
   );
